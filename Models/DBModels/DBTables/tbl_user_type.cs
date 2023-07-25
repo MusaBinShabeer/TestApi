@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MeteringManagementApi.Models.DBModels.DBTables
+namespace UserManagementApi.Models.DBModels.DBTables
 {
     public class tbl_user_type
     {

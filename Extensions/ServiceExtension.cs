@@ -1,7 +1,7 @@
-﻿using MeteringManagementApi.Models.DBModels;
+﻿using UserManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace MeteringManagementApi.Extensions
+namespace UserManagementApi.Extensions
 {
     public static class ServiceExtension
     {

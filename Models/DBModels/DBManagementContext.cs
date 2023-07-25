@@ -1,7 +1,7 @@
-﻿using MeteringManagementApi.Models.DBModels.DBTables;
+﻿using UserManagementApi.Models.DBModels.DBTables;
 using Microsoft.EntityFrameworkCore;
 
-namespace MeteringManagementApi.Models.DBModels
+namespace UserManagementApi.Models.DBModels
 {
     public class DBManagementContext : DbContext
     {

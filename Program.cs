@@ -1,5 +1,5 @@
-using MeteringManagementApi.Extensions;
-using MeteringManagementApi.Models.DBModels;
+using UserManagementApi.Extensions;
+using UserManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
