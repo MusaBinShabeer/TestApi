@@ -14,6 +14,8 @@ namespace MeteringManagementApi.Models.DBModels.DBTables
         public string password { get; set; } = string.Empty;
         public string token { get; set; } = string.Empty;
         public bool is_active { get; set; } = true;
+        public Guid fk_user_type { get; set; } = Guid.Empty;
+        public tbl_user_type? user_type { get; set; }
 
     }
 }

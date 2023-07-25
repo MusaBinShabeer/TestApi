@@ -3,6 +3,7 @@ using System;
 using MeteringManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MeteringManagementApi.Migrations
 {
     [DbContext(typeof(DBManagementContext))]
-    partial class DBManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230717162522_AddingBckDttest")]
+    partial class AddingBckDttest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,8 +74,8 @@ namespace MeteringManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            user_id = new Guid("c12c22cc-b4e2-4a2a-be80-d1475ef317aa"),
-                            fk_user_type = new Guid("23bd2825-b29e-47d0-90a2-60873e064480"),
+                            user_id = new Guid("c6bcb59a-53ed-4ded-bf5e-41f133f7523e"),
+                            fk_user_type = new Guid("3be9c2f0-0924-4ab3-9103-50108604c4c4"),
                             is_active = true,
                             password = "Enexol@123",
                             token = "",
@@ -104,7 +107,7 @@ namespace MeteringManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            type_id = new Guid("23bd2825-b29e-47d0-90a2-60873e064480"),
+                            type_id = new Guid("3be9c2f0-0924-4ab3-9103-50108604c4c4"),
                             is_active = true,
                             type_name = "Administrator"
                         });

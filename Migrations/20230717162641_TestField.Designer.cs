@@ -3,6 +3,7 @@ using System;
 using MeteringManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MeteringManagementApi.Migrations
 {
     [DbContext(typeof(DBManagementContext))]
-    partial class DBManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230717162641_TestField")]
+    partial class TestField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,10 @@ namespace MeteringManagementApi.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("testField")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -71,10 +78,11 @@ namespace MeteringManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            user_id = new Guid("c12c22cc-b4e2-4a2a-be80-d1475ef317aa"),
-                            fk_user_type = new Guid("23bd2825-b29e-47d0-90a2-60873e064480"),
+                            user_id = new Guid("b67b517c-c6c4-4e58-9397-b1f675e7851e"),
+                            fk_user_type = new Guid("e6e4723d-8489-46bc-838e-ef1bd5efff9d"),
                             is_active = true,
                             password = "Enexol@123",
+                            testField = "",
                             token = "",
                             user_email_address = "admin@metering.com",
                             user_first_name = "Administrator",
@@ -104,7 +112,7 @@ namespace MeteringManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            type_id = new Guid("23bd2825-b29e-47d0-90a2-60873e064480"),
+                            type_id = new Guid("e6e4723d-8489-46bc-838e-ef1bd5efff9d"),
                             is_active = true,
                             type_name = "Administrator"
                         });
