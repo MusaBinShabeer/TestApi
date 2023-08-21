@@ -7,7 +7,7 @@ using UserManagementApi.Repositories.UserServicesRepo;
 
 namespace UserManagementApi.Controllers
 {
-    [ApiKey]
+    //[ApiKey]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
