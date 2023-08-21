@@ -1,6 +1,7 @@
 using UserManagementApi.Extensions;
 using UserManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
+using UserManagementApi.Extensions.MiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,16 +26,15 @@ using (var scope = app.Services.CreateScope())
     }
 }
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<JWTMiddleWare>();
 app.MapControllers();
-
 app.Run();

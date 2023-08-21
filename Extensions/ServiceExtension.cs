@@ -1,5 +1,9 @@
 ﻿using UserManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
+using UserManagementApi.Repositories.JWTUtilsRepo;
+using UserManagementApi.Repositories.ApiKeyServiceRepo;
+using UserManagementApi.Extensions.MiddleWare;
+using UserManagementApi.Repositories.UserServicesRepo;
 
 namespace UserManagementApi.Extensions
 {
@@ -21,6 +25,14 @@ namespace UserManagementApi.Extensions
                                       .AllowAnyOrigin();
                                   });
             });
+            services.AddAutoMapper(typeof(Program).Assembly);
+            services.AddTransient<IJWTUtils, JWTUtils>();
+            services.AddTransient<IApiKeyService, ApiKeyService>();
+            services.AddTransient<IApiKeyService, ApiKeyService>();
+            services.AddSingleton<UserAuthorizeAttribute>();
+            services.AddSingleton<ApiKeyAttribute>();
+            services.AddTransient<OtherServices>();
+            services.AddTransient<IUserService,UserService>();
         }
 
     }

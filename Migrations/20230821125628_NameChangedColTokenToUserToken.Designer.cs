@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserManagementApi.Models.DBModels;
@@ -11,9 +12,11 @@ using UserManagementApi.Models.DBModels;
 namespace UserManagementApi.Migrations
 {
     [DbContext(typeof(DBManagementContext))]
-    partial class DBManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230821125628_NameChangedColTokenToUserToken")]
+    partial class NameChangedColTokenToUserToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,15 +53,15 @@ namespace UserManagementApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("user_name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("user_phone_no")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("user_token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("user_username")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -71,16 +74,16 @@ namespace UserManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            user_id = new Guid("ce89f374-3fa6-4f23-8586-03f59fac5411"),
-                            fk_user_type = new Guid("4d8efb44-b7ee-450d-b3a5-92a5abf1f1fc"),
+                            user_id = new Guid("27b7919c-040f-451b-b940-9fc2331eb348"),
+                            fk_user_type = new Guid("59ae4bad-09b7-4876-af24-3a60feb299e0"),
                             is_active = true,
                             password = "Enexol@123",
                             user_email_address = "admin@metering.com",
                             user_first_name = "Administrator",
                             user_last_name = "Metering",
+                            user_name = "Admin",
                             user_phone_no = "",
-                            user_token = "",
-                            user_username = "Admin"
+                            user_token = ""
                         });
                 });
 
@@ -104,7 +107,7 @@ namespace UserManagementApi.Migrations
                     b.HasData(
                         new
                         {
-                            type_id = new Guid("4d8efb44-b7ee-450d-b3a5-92a5abf1f1fc"),
+                            type_id = new Guid("59ae4bad-09b7-4876-af24-3a60feb299e0"),
                             is_active = true,
                             type_name = "Administrator"
                         });

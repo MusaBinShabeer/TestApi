@@ -19,11 +19,11 @@ namespace UserManagementApi.Models.DBModels
             var user = new tbl_user
             {
                 password="Enexol@123",
-                token="",
+                user_token ="",
                 user_email_address="admin@metering.com",
                 user_first_name="Administrator",
                 user_last_name="Metering",
-                user_name="Admin",
+                user_username="Admin",
                 user_phone_no="",
                 is_active=true,
                 fk_user_type= adminUserType.type_id
@@ -32,9 +32,9 @@ namespace UserManagementApi.Models.DBModels
             #endregion
             #region has RelationShip
             modelBuilder.Entity<tbl_user>()
-               .HasOne(p => p.user_type)
-               .WithMany(b => b.users)
-               .HasForeignKey(p => p.fk_user_type);
+                .HasOne(p => p.user_type)
+                .WithMany(b => b.users)
+                .HasForeignKey(p => p.fk_user_type);
             #endregion
         }
         public DbSet<tbl_user> tbl_users { get; set; }

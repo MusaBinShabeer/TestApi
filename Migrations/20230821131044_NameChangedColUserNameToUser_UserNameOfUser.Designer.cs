@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserManagementApi.Models.DBModels;
@@ -11,9 +12,11 @@ using UserManagementApi.Models.DBModels;
 namespace UserManagementApi.Migrations
 {
     [DbContext(typeof(DBManagementContext))]
-    partial class DBManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20230821131044_NameChangedColUserNameToUser_UserNameOfUser")]
+    partial class NameChangedColUserNameToUser_UserNameOfUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
