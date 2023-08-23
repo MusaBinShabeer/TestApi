@@ -8,5 +8,6 @@ namespace UserManagementApi.Repositories.UserServicesRepo
     public interface IUserService
     {
         public  Task<ResponseModel<UserResponseDTO>> AddUser(AddUserDTO requestDto);
+        public  Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto);
     }
 }

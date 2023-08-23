@@ -32,5 +32,24 @@ namespace UserManagementApi.Controllers
                 return BadRequest(Response);
             }
         }
+        [Route("api/[controller]")]
+        [HttpPut]
+        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> Put(UpdateUserDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Response = userService.UpdateUser(model);
+                return Ok(await Response);
+            }
+            else
+            {
+                var Response = new ResponseModel<UserResponseDTO>()
+                {
+                    remarks = "Model Not Verified",
+                    success = false
+                };
+                return BadRequest(Response);
+            }
+        }
     }
 }
