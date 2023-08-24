@@ -9,5 +9,8 @@ namespace UserManagementApi.Repositories.UserServicesRepo
     {
         public  Task<ResponseModel<UserResponseDTO>> AddUser(AddUserDTO requestDto);
         public  Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto);
+        public  Task<ResponseModel<UserResponseDTO>> GetUserById(string userID);
+        public  Task<ResponseModel<List<UserResponseDTO>>> GetAllUsers();
+        public  Task<ResponseModel> DeleteUserById(string userId);
     }
 }
