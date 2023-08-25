@@ -51,11 +51,11 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string model)
+        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string UserID)
         {
             if (ModelState.IsValid)
             {
-                var Response = userService.GetUserById(model);
+                var Response = userService.GetUserById(UserID);
                 return Ok(await Response);
             }
             else
@@ -88,11 +88,11 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpDelete]
-        public async Task<ActionResult<ResponseModel>> DeleteUserById(string model)
+        public async Task<ActionResult<ResponseModel>> DeleteUserById(string UserID)
         {
             if (ModelState.IsValid)
             {
-                var Response = userService.DeleteUserById(model);
+                var Response = userService.DeleteUserById(UserID);
                 return Ok(await Response);
             }
             else
