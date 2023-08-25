@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using UserManagementApi.Models.DBModels.DBTables;
+using UserManagementApi.Models.DTOs.AuthDTO;
 using UserManagementApi.Models.DTOs.UserDTOs;
 
 namespace UserManagementApi.Extensions
@@ -35,6 +36,8 @@ namespace UserManagementApi.Extensions
               .ForMember(d => d.userPhoneNo, opt => opt.MapFrom(src => src.user_phone_no))
               .ForMember(d => d.password, opt => opt.MapFrom(src => otherServices.encodePassword(src.password)))
               .ForMember(d => d.userUserName, opt => opt.MapFrom(src => src.user_username));
+
+
         }
     }
 }
