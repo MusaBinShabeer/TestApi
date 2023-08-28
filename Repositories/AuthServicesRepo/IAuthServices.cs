@@ -10,6 +10,8 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
     {
         public Task<ResponseModel> AuthUser(UserLoginDTO requestDto);
 
+        public Task<ResponseModel> ForgotPassword(ForgotPasswordDTO requestDto);
+
 
     }
 }

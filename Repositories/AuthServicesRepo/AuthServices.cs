@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserManagementApi.Extensions;
 using UserManagementApi.Models.DBModels;
@@ -24,7 +25,7 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
         {
             try
             {
-                var existingUser = await db.tbl_users.FindAsync(Guid.Parse(requestDto.userId));
+                var existingUser = await db.tbl_users.Where(u => u.user_username == requestDto.userUserName).SingleOrDefaultAsync();
                 if (existingUser != null)
                 {
                     if (existingUser.password == otherServices.encodePassword(requestDto.password) && existingUser.user_username == requestDto.userUserName)
@@ -39,7 +40,15 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
                     else
                     {
                         // Authentication failed
-                        if (existingUser.user_username != requestDto.userUserName)
+                        if (existingUser.user_username != requestDto.userUserName && existingUser.password != otherServices.encodePassword(requestDto.password))
+                        {
+                            return new ResponseModel
+                            {
+                                remarks = "Both Username and Password are wrong",
+                                success = false,
+                            };
+                        }
+                        else if (existingUser.user_username != requestDto.userUserName)
                         {
                             return new ResponseModel
                             {
@@ -70,6 +79,42 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
             catch (Exception ex)
             {
                 // Log the exception
+                return new ResponseModel
+                {
+                    remarks = $"There was a fatal error {ex.ToString()}",
+                    success = false,
+                };
+            }
+        }
+        public async Task<ResponseModel> ForgotPassword(ForgotPasswordDTO requestDto)
+        {
+            try
+            {
+                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).SingleOrDefaultAsync();
+
+                if (user != null)
+                {
+                    // Generate a password reset token and send a reset email
+                    // ... (code to generate token and send email)
+
+                    return (new ResponseModel
+                    {
+                        success = true,
+                        remarks = "Password reset email sent"
+                    });
+                }
+                else
+                {
+                    // User not found
+                    return (new ResponseModel
+                    {
+                        success = true,
+                        remarks = "Password reset email sent"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
                 return new ResponseModel
                 {
                     remarks = $"There was a fatal error {ex.ToString()}",

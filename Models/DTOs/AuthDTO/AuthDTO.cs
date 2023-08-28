@@ -5,10 +5,13 @@ namespace UserManagementApi.Models.DTOs.AuthDTO
     public class UserLoginDTO
     {
         [Required]
-        public string userId { get; set; } = string.Empty;
+        public string userUserName { get; set; } = string.Empty;
         [Required]
-        public string userUserName { get; set; }
+        public string password { get; set; } = string.Empty;
+    }
+    public class ForgotPasswordDTO
+    {
         [Required]
-        public string password { get; set; }
+        public string userEmailAddress { get; set; } = string.Empty;
     }
 }
