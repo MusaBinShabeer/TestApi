@@ -19,8 +19,8 @@ namespace UserManagementApi.Repositories.UserServicesRepo
         {
             try
             {
-                var newUser = new tbl_user();
-                newUser = mapper.Map<tbl_user>(requestDto);
+                var newUser = mapper.Map<tbl_user>(requestDto);
+
                 await db.AddAsync(newUser);
                 await db.SaveChangesAsync();
                 return new ResponseModel<UserResponseDTO>() 

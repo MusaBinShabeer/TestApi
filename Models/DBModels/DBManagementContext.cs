@@ -8,6 +8,7 @@ namespace UserManagementApi.Models.DBModels
         public DBManagementContext(DbContextOptions<DBManagementContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
+
             #region Has Data
             var adminUserType = new tbl_user_type()
             {
@@ -39,5 +40,6 @@ namespace UserManagementApi.Models.DBModels
         }
         public DbSet<tbl_user> tbl_users { get; set; }
         public DbSet<tbl_user_type> tbl_user_types { get; set; }
+
     }
 }

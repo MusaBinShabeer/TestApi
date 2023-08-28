@@ -2,6 +2,8 @@ using UserManagementApi.Extensions;
 using UserManagementApi.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using UserManagementApi.Extensions.MiddleWare;
+using UserManagementApi.Repositories.UserTypeServicesRepo;
+using UserManagementApi.Repositories.UserServicesRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.ConfigureServices(builder.Configuration);
+builder.Services.AddScoped<IUserTypeService, UserTypeService>();
+builder.Services.AddScoped<IUserService, UserService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureJWT(builder.Configuration);
 var app = builder.Build();
