@@ -54,7 +54,7 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpGet("typeId")]
-        public async Task<ActionResult<ResponseModel<List<UserTypeResponseDTO>>>> GetById(Guid typeId)
+        public async Task<ActionResult<ResponseModel<List<UserTypeResponseDTO>>>> GetById(string typeId)
         {
             if (ModelState.IsValid)
             {
@@ -73,11 +73,11 @@ namespace UserManagementApi.Controllers
         }
 
         [HttpPut("{typeId}")]
-        public async Task<ActionResult<ResponseModel<UserTypeResponseDTO>>> Put(Guid typeId, UpdateUserTypeDTO model)
+        public async Task<ActionResult<ResponseModel<UserTypeResponseDTO>>> Put(UpdateUserTypeDTO model)
         {
             if (ModelState.IsValid)
             {
-                var response = userTypeService.UpdateUserType(typeId, model);
+                var response = userTypeService.UpdateUserType(model);
                 return Ok(await response);
             }
             else
@@ -92,10 +92,9 @@ namespace UserManagementApi.Controllers
         }
 
         [HttpDelete("{typeId}")]
-        public async Task<ActionResult<ResponseModel<UserTypeResponseDTO>>> DeleteById(Guid typeId)
+        public async Task<ActionResult<ResponseModel<UserTypeResponseDTO>>> DeleteById(string typeId)
         {
             var response = await userTypeService.DeleteById(typeId);
-
             if (response.success)
             {
                 return Ok(response);
@@ -105,10 +104,5 @@ namespace UserManagementApi.Controllers
                 return BadRequest(response);
             }
         }
-
-
-
-
-
     }
 }

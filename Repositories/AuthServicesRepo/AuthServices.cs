@@ -27,7 +27,7 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
         {
             try
             {
-                var existingUser = await db.tbl_users.Where(u => u.user_username == requestDto.userUserName).FirstOrDefaultAsync();
+                var existingUser = await db.tbl_users.Where(u => u.user_username.ToLower() == requestDto.userUserName.ToLower()).FirstOrDefaultAsync();
                 if (existingUser != null)
                 {
                     if (existingUser.password == otherServices.encodePassword(requestDto.password) )
@@ -75,7 +75,7 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
         {
             try
             {
-                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).FirstOrDefaultAsync();
+                var user = await db.tbl_users.Where(u => u.user_email_address.ToLower() == requestDto.userEmailAddress.ToLower()).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     // Generate a password reset token and send a reset email

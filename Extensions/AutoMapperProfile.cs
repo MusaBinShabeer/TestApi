@@ -38,16 +38,19 @@ namespace UserManagementApi.Extensions
               .ForMember(d => d.userPhoneNo, opt => opt.MapFrom(src => src.user_phone_no))
               .ForMember(d => d.password, opt => opt.MapFrom(src => otherServices.encodePassword(src.password)))
               .ForMember(d => d.userUserName, opt => opt.MapFrom(src => src.user_username));
-              #endregion
-               CreateMap<AddUserTypeDTO, tbl_user_type>()
+            #endregion
+            #region UserType
+            CreateMap<AddUserTypeDTO, tbl_user_type>()
              .ForMember(d => d.type_name, opt => opt.MapFrom(src => src.typeName));
             CreateMap<UpdateUserTypeDTO, tbl_user_type>()
-             .ForMember(d => d.type_name, opt => opt.MapFrom(src => src.typeName));
+             .ForMember(d => d.type_name, opt => opt.MapFrom(src => src.typeName))
+             .ForMember(d => d.type_id, opt => opt.MapFrom((src, dest) => otherServices.Check(src.typeId) ? Guid.Parse(src.typeId) : dest.type_id))
+             .ForMember(d => d.is_active, opt => opt.MapFrom((src, dest) => otherServices.Check(src.isActive) ? src.isActive : dest.is_active));
             CreateMap<tbl_user_type, UserTypeResponseDTO>()
              .ForMember(d => d.typeId, opt => opt.MapFrom(src => src.type_id))
              .ForMember(d => d.typeName, opt => opt.MapFrom(src => src.type_name))
-             .ForMember(d => d.isActive, opt => opt.MapFrom(src => src.is_active))
-             .ForMember(d => d.users, opt => opt.Ignore());
+             .ForMember(d => d.isActive, opt => opt.MapFrom(src => src.is_active));
+            #endregion
         }
     }
 }
