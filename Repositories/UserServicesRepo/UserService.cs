@@ -20,17 +20,29 @@ namespace UserManagementApi.Repositories.UserServicesRepo
         {
             try
             {
-                // check whether this user exist or not on basis useremail and username
-                var newUser = new tbl_user();
-                newUser = mapper.Map<tbl_user>(requestDto);
-                await db.AddAsync(newUser);
-                await db.SaveChangesAsync();
-                return new ResponseModel<UserResponseDTO>()
+                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).FirstOrDefaultAsync();
+                if (user == null)
                 {
-                    data = mapper.Map<UserResponseDTO>(newUser),
-                    remarks = "Success",
-                    success = true
-                };
+                    var newUser = new tbl_user();
+                    newUser = mapper.Map<tbl_user>(requestDto);
+                    await db.AddAsync(newUser);
+                    await db.SaveChangesAsync();
+                    return new ResponseModel<UserResponseDTO>()
+                    {
+                        data = mapper.Map<UserResponseDTO>(newUser),
+                        remarks = "Success",
+                        success = true
+                    };
+                }
+                else
+                {
+                    return new ResponseModel<UserResponseDTO>()
+                    {
+                        remarks = "User Already Exists",
+                        success = false,
+                    };
+                }
+
             }
             catch (Exception ex)
             {
