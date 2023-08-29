@@ -4,6 +4,7 @@ using UserManagementApi.Repositories.JWTUtilsRepo;
 using UserManagementApi.Repositories.ApiKeyServiceRepo;
 using UserManagementApi.Extensions.MiddleWare;
 using UserManagementApi.Repositories.UserServicesRepo;
+using UserManagementApi.Repositories.AuthServicesRepo;
 
 namespace UserManagementApi.Extensions
 {
@@ -33,6 +34,7 @@ namespace UserManagementApi.Extensions
             services.AddSingleton<ApiKeyAttribute>();
             services.AddTransient<OtherServices>();
             services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IAuthServices, AuthServices>();
         }
 
     }
