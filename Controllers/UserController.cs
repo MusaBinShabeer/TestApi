@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserManagementApi.Extensions;
 using UserManagementApi.Extensions.MiddleWare;
 using UserManagementApi.Models.DTOs.ResponseDTO;
 using UserManagementApi.Models.DTOs.UserDTOs;
@@ -13,8 +14,14 @@ namespace UserManagementApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
-        // other service
-        public UserController(IUserService userService) { this.userService = userService; }
+        private readonly OtherServices otherServices;
+        
+        public UserController(IUserService userService, OtherServices otherServices)
+        { 
+            this.userService = userService; 
+            this.otherServices = otherServices; 
+        }
+
         [HttpPost]
         public async Task<ActionResult<ResponseModel<UserResponseDTO>>> Post(AddUserDTO model)
         {
@@ -52,18 +59,18 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string UserID)
+        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string ID)
         {
-            if (ModelState.IsValid)
+            if (otherServices.Check(ID))
             {
-                var Response = userService.GetUserById(UserID);
+                var Response = userService.GetUserById(ID);
                 return Ok(await Response);
             }
             else
             {
                 var Response = new ResponseModel<UserResponseDTO>()
                 {
-                    remarks = "Model Not Verified",
+                    remarks = "User not found by ID",
                     success = false
                 };
                 return BadRequest(Response);
@@ -73,11 +80,11 @@ namespace UserManagementApi.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseModel<List<UserResponseDTO>>>> GetAllUsers()
         {
-            // remove model state
-            if (ModelState.IsValid)
+            var users = await userService.GetAllUsers(); 
+            if (users != null)
             {
-                var Response = userService.GetAllUsers();
-                return Ok(await Response);
+                var Response = users;
+                return Ok(Response);
             }
             else
             {
@@ -92,22 +99,20 @@ namespace UserManagementApi.Controllers
         [HttpDelete]
         public async Task<ActionResult<ResponseModel>> DeleteUserById(string Id)
         {
-            // if(otherservice.Check(UserId)
-            if (ModelState.IsValid)
+            if(otherServices.Check(Id))
             {
-                var Response = userService.DeleteUserById(UserID);
+                var Response = userService.DeleteUserById(Id);
                 return Ok(await Response);
             }
             else
             {
                 var Response = new ResponseModel<UserResponseDTO>()
                 {
-                    remarks = "Model Not Verified",
+                    remarks = "User not found by ID",
                     success = false
                 };
                 return BadRequest(Response);
             }
         }
-        
     }
 }

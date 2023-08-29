@@ -15,11 +15,12 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
     {
         private readonly DBManagementContext db;
         private readonly IMapper mapper;
-        private readonly OtherServices otherServices = new();
-        public AuthServices(DBManagementContext db, IMapper mapper)
+        private readonly OtherServices otherServices;
+        public AuthServices(DBManagementContext db, IMapper mapper, OtherServices otherServices)
         {
             this.db = db;
             this.mapper = mapper;
+            this.otherServices = otherServices;
         }
         // correct this logic
         public async Task<ResponseModel> AuthUser(UserLoginDTO requestDto)
@@ -29,7 +30,7 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
                 var existingUser = await db.tbl_users.Where(u => u.user_username == requestDto.userUserName).FirstOrDefaultAsync();
                 if (existingUser != null)
                 {
-                    if (existingUser.password == otherServices.encodePassword(requestDto.password) && existingUser.user_username == requestDto.userUserName)
+                    if (existingUser.password == otherServices.encodePassword(requestDto.password) )
                     {
                         // Authentication successful
                         return new ResponseModel
@@ -41,30 +42,13 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
                     else
                     {
                         // Authentication failed
-                        if (existingUser.user_username != requestDto.userUserName && existingUser.password != otherServices.encodePassword(requestDto.password))
+                       
+                        return new ResponseModel
                         {
-                            return new ResponseModel
-                            {
-                                remarks = "Both Username and Password are wrong",
-                                success = false,
-                            };
-                        }
-                        else if (existingUser.user_username != requestDto.userUserName)
-                        {
-                            return new ResponseModel
-                            {
-                                remarks = "Username is wrong",
-                                success = false,
-                            };
-                        }
-                        else
-                        {
-                            return new ResponseModel
-                            {
-                                remarks = "Password is wrong",
-                                success = false,
-                            };
-                        }
+                            remarks = "Password is wrong",
+                            success = false,
+                        };
+                    
                     }
                 }
                 else
@@ -91,7 +75,7 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
         {
             try
             {
-                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).SingleOrDefaultAsync();
+                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     // Generate a password reset token and send a reset email
@@ -108,8 +92,8 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
                     // User not found
                     return (new ResponseModel
                     {
-                        success = true,
-                        remarks = "Password reset email sent"
+                        success = false,
+                        remarks = "Email is wrong"
                     });
                 }
             }
@@ -122,7 +106,5 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
                 };
             }
         }
-
-
     }
 }
