@@ -42,9 +42,6 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
                 };
             }
         }
-
-
-
         public async Task<ResponseModel<List<UserTypeResponseDTO>>> GetUserType()
         {
             try
@@ -70,8 +67,6 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
                 };
             }
         }
-
-
         public async Task<ResponseModel<UserTypeResponseDTO>> UpdateUserType(Guid typeId, UpdateUserTypeDTO requestDto)
         {
             try
@@ -144,8 +139,6 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
                 };
             }
         }
-
-
         public async Task<ResponseModel<UserTypeResponseDTO>> DeleteById(Guid typeId)
         {
             try
