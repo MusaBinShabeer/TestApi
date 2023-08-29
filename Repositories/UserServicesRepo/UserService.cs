@@ -20,6 +20,7 @@ namespace UserManagementApi.Repositories.UserServicesRepo
         {
             try
             {
+                // check whether this user exist or not on basis useremail and username
                 var newUser = new tbl_user();
                 newUser = mapper.Map<tbl_user>(requestDto);
                 await db.AddAsync(newUser);
@@ -39,13 +40,11 @@ namespace UserManagementApi.Repositories.UserServicesRepo
                     success = false,
                 };
             }
-
         }
         public async Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto)
         {
             try
             {
-                //var existingUser = await db.FindAsync<tbl_user>(Guid.Parse(requestDto.userId));
                 var existingUser = await db.tbl_users.FindAsync(Guid.Parse(requestDto.userId));
                 if (existingUser != null)
                 {
@@ -113,11 +112,9 @@ namespace UserManagementApi.Repositories.UserServicesRepo
             try
             {
                 var allUsers = await db.tbl_users.ToListAsync();
-
                 if (allUsers.Any())
                 {
                     var userDTOs = allUsers.Select(existingUser => mapper.Map<UserResponseDTO>(existingUser)).ToList();
-
                     return new ResponseModel<List<UserResponseDTO>>()
                     {
                         data = userDTOs,
@@ -148,12 +145,10 @@ namespace UserManagementApi.Repositories.UserServicesRepo
             try
             {
                 var existingUser = await db.tbl_users.FindAsync(Guid.Parse(userId));
-
                 if (existingUser != null)
                 {
                     db.tbl_users.Remove(existingUser); // Mark the entity for deletion
                     await db.SaveChangesAsync();
-
                     return new ResponseModel()
                     {
                         remarks = "User deleted successfully",
@@ -178,7 +173,5 @@ namespace UserManagementApi.Repositories.UserServicesRepo
                 };
             }
         }
-
-
     }
 }
