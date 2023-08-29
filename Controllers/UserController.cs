@@ -59,11 +59,11 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string ID)
+        public async Task<ActionResult<ResponseModel<UserResponseDTO>>> GetUserById(string id)
         {
-            if (otherServices.Check(ID))
+            if (otherServices.Check(id))
             {
-                var Response = userService.GetUserById(ID);
+                var Response = userService.GetUserById(id);
                 return Ok(await Response);
             }
             else
@@ -97,18 +97,18 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpDelete]
-        public async Task<ActionResult<ResponseModel>> DeleteUserById(string Id)
+        public async Task<ActionResult<ResponseModel>> DeleteUserById(string id)
         {
-            if(otherServices.Check(Id))
+            if(otherServices.Check(id))
             {
-                var Response = userService.DeleteUserById(Id);
+                var Response = userService.DeleteUserById(id);
                 return Ok(await Response);
             }
             else
             {
                 var Response = new ResponseModel<UserResponseDTO>()
                 {
-                    remarks = "User not found by ID",
+                    remarks = "User not found",
                     success = false
                 };
                 return BadRequest(Response);
