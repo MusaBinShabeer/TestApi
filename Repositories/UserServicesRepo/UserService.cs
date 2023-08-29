@@ -20,7 +20,7 @@ namespace UserManagementApi.Repositories.UserServicesRepo
         {
             try
             {
-                var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).FirstOrDefaultAsync();
+                var user = await db.tbl_users.Where(u => u.user_email_address.ToLower() == requestDto.userEmailAddress.ToLower() || u.user_username.ToLower() == requestDto.userUserName.ToLower()).FirstOrDefaultAsync();
                 if (user == null)
                 {
                     var newUser = new tbl_user();

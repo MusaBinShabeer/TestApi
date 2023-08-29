@@ -2,6 +2,7 @@
 using UserManagementApi.Models.DBModels.DBTables;
 using UserManagementApi.Models.DTOs.AuthDTO;
 using UserManagementApi.Models.DTOs.UserDTOs;
+using UserManagementApi.Models.DTOs.UserTypeDTOs;
 
 namespace UserManagementApi.Extensions
 {
@@ -10,6 +11,7 @@ namespace UserManagementApi.Extensions
         private readonly OtherServices otherServices = new();
         public AutoMapperProfile()
         {
+            #region User
             CreateMap<AddUserDTO, tbl_user>()
               .ForMember(d => d.user_first_name, opt => opt.MapFrom(src => src.userFirstName))
               .ForMember(d => d.user_last_name, opt => opt.MapFrom(src => src.userLastName))
@@ -36,8 +38,16 @@ namespace UserManagementApi.Extensions
               .ForMember(d => d.userPhoneNo, opt => opt.MapFrom(src => src.user_phone_no))
               .ForMember(d => d.password, opt => opt.MapFrom(src => otherServices.encodePassword(src.password)))
               .ForMember(d => d.userUserName, opt => opt.MapFrom(src => src.user_username));
-
-
+              #endregion
+               CreateMap<AddUserTypeDTO, tbl_user_type>()
+             .ForMember(d => d.type_name, opt => opt.MapFrom(src => src.typeName));
+            CreateMap<UpdateUserTypeDTO, tbl_user_type>()
+             .ForMember(d => d.type_name, opt => opt.MapFrom(src => src.typeName));
+            CreateMap<tbl_user_type, UserTypeResponseDTO>()
+             .ForMember(d => d.typeId, opt => opt.MapFrom(src => src.type_id))
+             .ForMember(d => d.typeName, opt => opt.MapFrom(src => src.type_name))
+             .ForMember(d => d.isActive, opt => opt.MapFrom(src => src.is_active))
+             .ForMember(d => d.users, opt => opt.Ignore());
         }
     }
 }
