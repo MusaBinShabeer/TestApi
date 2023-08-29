@@ -146,7 +146,6 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
                         success = false,
                     };
                 }
-                
             }
             catch (Exception ex)
             {
