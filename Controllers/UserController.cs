@@ -13,6 +13,7 @@ namespace UserManagementApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
+        // other service
         public UserController(IUserService userService) { this.userService = userService; }
         [HttpPost]
         public async Task<ActionResult<ResponseModel<UserResponseDTO>>> Post(AddUserDTO model)
@@ -72,6 +73,7 @@ namespace UserManagementApi.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseModel<List<UserResponseDTO>>>> GetAllUsers()
         {
+            // remove model state
             if (ModelState.IsValid)
             {
                 var Response = userService.GetAllUsers();
@@ -88,8 +90,9 @@ namespace UserManagementApi.Controllers
             }
         }
         [HttpDelete]
-        public async Task<ActionResult<ResponseModel>> DeleteUserById(string UserID)
+        public async Task<ActionResult<ResponseModel>> DeleteUserById(string Id)
         {
+            // if(otherservice.Check(UserId)
             if (ModelState.IsValid)
             {
                 var Response = userService.DeleteUserById(UserID);

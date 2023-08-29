@@ -21,11 +21,12 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
             this.db = db;
             this.mapper = mapper;
         }
+        // correct this logic
         public async Task<ResponseModel> AuthUser(UserLoginDTO requestDto)
         {
             try
             {
-                var existingUser = await db.tbl_users.Where(u => u.user_username == requestDto.userUserName).SingleOrDefaultAsync();
+                var existingUser = await db.tbl_users.Where(u => u.user_username == requestDto.userUserName).FirstOrDefaultAsync();
                 if (existingUser != null)
                 {
                     if (existingUser.password == otherServices.encodePassword(requestDto.password) && existingUser.user_username == requestDto.userUserName)
@@ -91,7 +92,6 @@ namespace UserManagementApi.Repositories.AuthServicesRepo
             try
             {
                 var user = await db.tbl_users.Where(u => u.user_email_address == requestDto.userEmailAddress).SingleOrDefaultAsync();
-
                 if (user != null)
                 {
                     // Generate a password reset token and send a reset email
