@@ -21,6 +21,7 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
         {
             try
             {
+                // check whether this type already exists or not
                 var newUserType = new tbl_user_type();
                 newUserType = mapper.Map<tbl_user_type>(requestDto);
                 await db.AddAsync(newUserType);
@@ -48,12 +49,11 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
         {
             try
             {
+                // remove spaces between lines
                 var userTypes = await db.tbl_user_types.ToListAsync();
-
+                // check whether userTypes exists or not
+                //if(userTypes.Any())
                 var userTypeResponseDTOs = mapper.Map<List<UserTypeResponseDTO>>(userTypes);
-
-                
-
                 return new ResponseModel<List<UserTypeResponseDTO>>()
                 {
                     data = userTypeResponseDTOs,
@@ -76,6 +76,7 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
         {
             try
             {
+                // change Update Logic
                 var existingUserType = await db.tbl_user_types.FirstOrDefaultAsync(t => t.type_id == typeId);
 
                 if (existingUserType == null)
@@ -113,6 +114,7 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
         {
             try
             {
+                // change logic
                 var userTypesById = await db.tbl_user_types.FirstOrDefaultAsync(d => d.type_id == typeId); // Assuming tbl_user_type is your Entity Framework DbSet
 
                 if (userTypesById == null)
@@ -148,6 +150,7 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
         {
             try
             {
+                // change logic
                 var existingUserType = await db.tbl_user_types.FirstOrDefaultAsync(t => t.type_id == typeId);
                 if (existingUserType == null)
                 {
