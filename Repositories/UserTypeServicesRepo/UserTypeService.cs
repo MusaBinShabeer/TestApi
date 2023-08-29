@@ -125,7 +125,17 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
             try
             {
                 var userTypesById = await db.tbl_user_types.FindAsync(Guid.Parse(typeId)); // Assuming tbl_user_type is your Entity Framework DbSet
-                if (userTypesById == null)
+                if (userTypesById != null)
+                {
+                    var userTypeResponseDTOs = mapper.Map<UserTypeResponseDTO>(userTypesById);
+                    return new ResponseModel<UserTypeResponseDTO>()
+                    {
+                        data = userTypeResponseDTOs,
+                        remarks = "Success",
+                        success = true
+                    };
+                }
+                else
                 {
                     return new ResponseModel<UserTypeResponseDTO>()
                     {
@@ -133,13 +143,7 @@ namespace UserManagementApi.Repositories.UserTypeServicesRepo
                         success = false,
                     };
                 }
-                var userTypeResponseDTOs = mapper.Map<UserTypeResponseDTO>(userTypesById);
-                return new ResponseModel<UserTypeResponseDTO>()
-                {
-                    data = userTypeResponseDTOs,
-                    remarks = "Success",
-                    success = true
-                };
+         
             }
             catch (Exception ex)
             {
