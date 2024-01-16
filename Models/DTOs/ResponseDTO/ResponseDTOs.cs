@@ -1,4 +1,4 @@
-﻿namespace UserManagementApi.Models.DTOs.ResponseDTO
+﻿namespace TestApi.Models.DTOs.ResponseDTO
 {
     public class ResponseModel
     {

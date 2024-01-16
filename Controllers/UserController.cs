@@ -1,25 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserManagementApi.Extensions;
-using UserManagementApi.Extensions.MiddleWare;
-using UserManagementApi.Models.DTOs.ResponseDTO;
-using UserManagementApi.Models.DTOs.UserDTOs;
-using UserManagementApi.Repositories.UserServicesRepo;
+using TestApi.Extensions;
+using TestApi.Models.DTOs.ResponseDTO;
+using TestApi.Models.DTOs.UserDTOs;
+using TestApi.Repositories.UserServicesRepo;
 
-namespace UserManagementApi.Controllers
+namespace TestApi.Controllers
 {
-    //[ApiKey]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
         private readonly OtherServices otherServices;
-        
+
         public UserController(IUserService userService, OtherServices otherServices)
-        { 
-            this.userService = userService; 
-            this.otherServices = otherServices; 
+        {
+            this.userService = userService;
+            this.otherServices = otherServices;
         }
 
         [HttpPost]
@@ -80,7 +78,7 @@ namespace UserManagementApi.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseModel<List<UserResponseDTO>>>> GetAllUsers()
         {
-            var users = await userService.GetAllUsers(); 
+            var users = await userService.GetAllUsers();
             if (users != null)
             {
                 var Response = users;
@@ -99,7 +97,7 @@ namespace UserManagementApi.Controllers
         [HttpDelete]
         public async Task<ActionResult<ResponseModel>> DeleteUserById(string id)
         {
-            if(otherServices.Check(id))
+            if (otherServices.Check(id))
             {
                 var Response = userService.DeleteUserById(id);
                 return Ok(await Response);

@@ -1,46 +1,40 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UserManagementApi.Models.DTOs.UserDTOs
+namespace TestApi.Models.DTOs.UserDTOs
 {
-    public class UserResponseDTO
+    public class UserDTO 
+    {
+        public string userGender { get; set; } = string.Empty;
+        public string userPhoneNo { get; set; } = string.Empty;
+        public string userClick { get; set; } = string.Empty;
+    }
+    public class UserResponseDTO :UserDTO
     {
         public string userId { get; set; } = string.Empty;
-        public string userUserName { get; set; } = string.Empty;
-        public string userFirstName { get; set; } = string.Empty;
-        public string userLastName { get; set; } = string.Empty;
-        public string userEmailAddress { get; set; } = string.Empty;
-        public string userPhoneNo { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
-        public string userToken { get; set; } = string.Empty;
-        public bool is_active { get; set; } = true;
-        public string fkUserType { get; set; } = string.Empty;
+        public string userName { get; set; } = string.Empty;
     }
-    public class AddUserDTO
+    public class AddUserDTO: UserDTO
     {
         [Required]
-        public string userUserName { get; set; } = string.Empty;
-        public string userFirstName { get; set; } = string.Empty;
-        public string userLastName { get; set; } = string.Empty;
-        [Required]
-        public string userEmailAddress { get; set; } = string.Empty;
-        public string userPhoneNo { get; set; } = string.Empty;
-        [Required]
-        public string password { get; set; } = string.Empty;
-        public bool isActive { get; set; } = true;
-        [Required]
-        public string fkUserType { get; set; } = string.Empty;
+        public string userName { get; set; } = string.Empty;
+       
     }
-    public class UpdateUserDTO
+    public class UpdateUserDTO :UserDTO
     {
         [Required]
         public string userId { get; set; } = string.Empty;
-        public string userUserName { get; set; } = string.Empty;
-        public string userFirstName { get; set; } = string.Empty;
-        public string userLastName { get; set; } = string.Empty;
-        public string userEmailAddress { get; set; } = string.Empty;
-        public string userPhoneNo { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
-        public bool isActive { get; set; } = true;
-        public string fkUserType { get; set; } = string.Empty;
+        public string userName { get; set; } = string.Empty;
+    }
+    public class UserTestDTO
+    {
+        public string userGender { get; set; } = "Male";
+        public string userPhoneNo { get; set; } = "03455990367";
+        public string userClick { get; set; } ="yes";
+    }
+    public class AddUserTestDTO : UserDTO
+    {
+        [Required]
+        public string userName { get; set; } = "Musa";
+
     }
 }

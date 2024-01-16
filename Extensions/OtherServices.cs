@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace UserManagementApi.Extensions
+namespace TestApi.Extensions
 {
     public class OtherServices
     {
@@ -59,7 +59,7 @@ namespace UserManagementApi.Extensions
             var x = new List<string>();
             foreach (var item in model)
             {
-                x.Add((item.ToString()));
+                x.Add(item.ToString());
             }
             return x;
         }
@@ -68,7 +68,7 @@ namespace UserManagementApi.Extensions
             var x = new List<string>();
             foreach (var item in model)
             {
-                x.Add((item.ToString()));
+                x.Add(item.ToString());
             }
             return x;
         }
@@ -77,7 +77,7 @@ namespace UserManagementApi.Extensions
             var x = new List<string>();
             foreach (var item in model)
             {
-                x.Add((item.ToString()));
+                x.Add(item.ToString());
             }
             return x;
         }

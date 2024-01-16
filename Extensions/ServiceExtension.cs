@@ -1,18 +1,14 @@
-﻿using UserManagementApi.Models.DBModels;
-using Microsoft.EntityFrameworkCore;
-using UserManagementApi.Repositories.JWTUtilsRepo;
-using UserManagementApi.Repositories.ApiKeyServiceRepo;
-using UserManagementApi.Extensions.MiddleWare;
-using UserManagementApi.Repositories.UserServicesRepo;
-using UserManagementApi.Repositories.AuthServicesRepo;
+﻿using Microsoft.EntityFrameworkCore;
+using TestApi.Models.DBModels;
+using TestApi.Repositories.UserServicesRepo;
 
-namespace UserManagementApi.Extensions
+namespace TestApi.Extensions
 {
     public static class ServiceExtension
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DBManagementContext>(options =>
+            services.AddDbContext<TestDBContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             // Adding Cors
             services.AddCors(options =>
@@ -27,14 +23,8 @@ namespace UserManagementApi.Extensions
                                   });
             });
             services.AddAutoMapper(typeof(Program).Assembly);
-            services.AddTransient<IJWTUtils, JWTUtils>();
-            services.AddTransient<IApiKeyService, ApiKeyService>();
-            services.AddTransient<IApiKeyService, ApiKeyService>();
-            services.AddSingleton<UserAuthorizeAttribute>();
-            services.AddSingleton<ApiKeyAttribute>();
             services.AddTransient<OtherServices>();
-            services.AddTransient<IUserService,UserService>();
-            services.AddTransient<IAuthServices, AuthServices>();
+            services.AddTransient<IUserService, UserService>();
         }
 
     }

@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using UserManagementApi.Models.DBModels.DBTables;
-using UserManagementApi.Models.DTOs.ResponseDTO;
-using UserManagementApi.Models.DTOs.UserDTOs;
+using TestApi.Models.DTOs.ResponseDTO;
+using TestApi.Models.DTOs.UserDTOs;
+using TestApi.Models.DBModels.DBTables;
 
-namespace UserManagementApi.Repositories.UserServicesRepo
+namespace TestApi.Repositories.UserServicesRepo
 {
     public interface IUserService
     {
-        public  Task<ResponseModel<UserResponseDTO>> AddUser(AddUserDTO requestDto);
-        public  Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto);
-        public  Task<ResponseModel<UserResponseDTO>> GetUserById(string userID);
-        public  Task<ResponseModel<List<UserResponseDTO>>> GetAllUsers();
-        public  Task<ResponseModel> DeleteUserById(string userId);
+        public Task<ResponseModel<UserResponseDTO>> AddUser(AddUserDTO requestDto);
+        public Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto);
+        public Task<ResponseModel<UserResponseDTO>> GetUserById(string userID);
+        public Task<ResponseModel<List<UserResponseDTO>>> GetAllUsers();
+        public Task<ResponseModel> DeleteUserById(string userId);
     }
 }

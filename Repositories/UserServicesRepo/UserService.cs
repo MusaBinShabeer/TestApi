@@ -1,26 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using UserManagementApi.Models.DBModels;
-using UserManagementApi.Models.DBModels.DBTables;
-using UserManagementApi.Models.DTOs.ResponseDTO;
-using UserManagementApi.Models.DTOs.UserDTOs;
+using TestApi.Models.DBModels;
+using TestApi.Models.DBModels.DBTables;
+using TestApi.Models.DTOs.ResponseDTO;
+using TestApi.Models.DTOs.UserDTOs;
 
-namespace UserManagementApi.Repositories.UserServicesRepo
+namespace TestApi.Repositories.UserServicesRepo
 {
     public class UserService : IUserService
     {
-        private readonly DBManagementContext db;
-        private readonly IMapper mapper; 
-        public UserService(DBManagementContext db, IMapper mapper)
-        { 
-            this.db = db; 
+        private readonly TestDBContext db;
+        private readonly IMapper mapper;
+        public UserService(TestDBContext db, IMapper mapper)
+        {
+            this.db = db;
             this.mapper = mapper;
         }
         public async Task<ResponseModel<UserResponseDTO>> AddUser(AddUserDTO requestDto)
         {
             try
             {
-                var user = await db.tbl_users.Where(u => u.user_email_address.ToLower() == requestDto.userEmailAddress.ToLower() || u.user_username.ToLower() == requestDto.userUserName.ToLower()).FirstOrDefaultAsync();
+                var user = await db.tbl_users.Where(u => u.user_name.ToLower() == requestDto.userName.ToLower() && u.user_phone_no == requestDto.userPhoneNo).FirstOrDefaultAsync();
                 if (user == null)
                 {
                     var newUser = new tbl_user();
@@ -42,7 +42,6 @@ namespace UserManagementApi.Repositories.UserServicesRepo
                         success = false,
                     };
                 }
-
             }
             catch (Exception ex)
             {
@@ -56,7 +55,7 @@ namespace UserManagementApi.Repositories.UserServicesRepo
         public async Task<ResponseModel<UserResponseDTO>> UpdateUser(UpdateUserDTO requestDto)
         {
             try
-            {
+            {   
                 var existingUser = await db.tbl_users.FindAsync(Guid.Parse(requestDto.userId));
                 if (existingUser != null)
                 {
